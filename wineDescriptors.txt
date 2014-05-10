@@ -1,29 +1,42 @@
 acidic
 aftertaste
 alcohol
+almond
 aroma
+apple
 astringent
 autolytic
 baked
 balanced
 big
 bitter
+black cherry
 body
 bouquet
+brazil nut
 brilliance
-buttery
+burnt sugar
+butter
+buttered popcorn
+butterscotch
 cat pee
 chewy
 chocolate
 closed
+clove
 cloying
+cinnamon
 coarse
+coconut
+coffee
 complex
 concentrated
 connected
 corked
+cream
 crisp
 depth
+dill
 dirty
 dry
 earthy
@@ -41,6 +54,7 @@ foxy
 fresh
 fruit
 full
+graham cracker
 grassy
 green
 hard
@@ -50,21 +64,34 @@ herbaceous
 hollow
 hot
 jammy
+kiwi
 lean
 leathery
 legs
+lemon
+lime
+meringue
+mocha
 musty
 nose
+nutmeg
 oak
+orange
 oxidized
 oxidative
+peach
+pear
 petrol
+pie crust
+plum
 powerful
 raisin
+raspberry
 reticent
 rich
 rough
 round
+sawdust
 smoke
 smooth
 soft
@@ -76,8 +103,34 @@ tannic
 tar
 tart
 toasty
+tobacco
 transparent
 typicity
+wax pepper
 vanilla
 vegetal
 vinegar
+yogurt
+passionfruit
+guava
+nectarine
+blackberry
+blueberry
+boysenberry
+blackcurrant
+fig
+apricot
+cranberry
+pineapple
+mango
+mandarin
+tangerine
+honeydew
+melon
+berries
+cherry
+lychee
+cantaloupe
+peach
+grapefruit
+nut
