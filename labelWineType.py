@@ -31,9 +31,9 @@ if __name__ == "__main__":
         written = False
         for type, group in wineGroupMappingDict.iteritems():
             if type in wineName:
-                output.write(group + '\n')
+                output.write(str(group) + '\n')
                 written = True
                 break
 
         if not written:
-            output.write(wineGroupMappingDict['Other'] + '\n')
+            output.write(str(wineGroupMappingDict['Other']) + '\n')
