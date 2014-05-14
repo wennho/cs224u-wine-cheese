@@ -43,7 +43,7 @@ class WineScraperPipeline(object):
 
     def process_item(self, item, spider):
 
-        row = item['name'] + item['price'] + item['description']
+        row = item['name'] + item['price'] + item['type'] + item['location'] + item['description']
 
         # reviews can contain empty text as well, so we want to filter those out
         for review in item['reviews']:

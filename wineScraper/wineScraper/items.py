@@ -14,6 +14,7 @@ class WineItem(Item):
     reviews = Field()
     description = Field()
     price = Field()
-
+    type = Field()
+    location = Field()
 
 

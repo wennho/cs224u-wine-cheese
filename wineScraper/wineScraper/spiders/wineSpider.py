@@ -29,7 +29,7 @@ class WineSpider(BaseSpider):
             fullUrl = self.domain[0] + url
             yield Request(fullUrl, callback=self.parseDetail)
 
-        nextURL = hxs.select('//a[@id="ctl00_BodyContent_ctrProducts_ctrPagingTop_lnkNext').extract()
+        nextURL = hxs.select('//a[@id="ctl00_BodyContent_ctrProducts_ctrPagingTop_lnkNext"]/@href').extract()
         if nextURL:
             fullUrl = self.domain[0] + nextURL[0]
             yield Request(fullUrl, callback=self.parse)
@@ -45,4 +45,14 @@ class WineSpider(BaseSpider):
             hxs.select('//p[@id="ctl00_BodyContent_wineMakersNotesContent"]/text()').extract())
         wine['reviews'] = genList(
             hxs.select('//div[@id="criticalAcclaim"]//p[@itemprop="description"]/text()').extract())
+        subtitle = hxs.select('//h2[@id="ctl00_BodyContent_productSubTitle"]/text()').extract()
+        type = ''
+        location = ''
+        if subtitle:
+            sub = subtitle[0].split(' from ')
+            type = sub[0]
+            if len(sub) > 1:
+                location = sub[1]
+        wine['type'] = [type]
+        wine['location'] = [location]
         return [wine]
