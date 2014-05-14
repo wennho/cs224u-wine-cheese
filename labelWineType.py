@@ -12,7 +12,7 @@ wineGroupMappingDict = {
     'Bordeaux': 5,
     'Syrah': 6,
     'Shiraz': 6, # syrah/shiraz are the same
-    'Pinot Noir':7,
+    'Pinot Noir': 7,
     'Merlot': 8,
     'Other': 9,
 }
@@ -26,6 +26,7 @@ if __name__ == "__main__":
     csvfile = open(sys.argv[1])
     output = open(sys.argv[2], 'wb')
     reader = csv.reader(csvfile)
+    reader.next()
     for row in reader:
         wineName = row[0]
         written = False
