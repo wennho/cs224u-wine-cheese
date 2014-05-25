@@ -1,7 +1,18 @@
-25 cheeses:
+25 cheeses - Linear Regression:
 Training accuracy: 64.0%
 LOOC-validation accuracy: 20.0%
 
-100 cheeses: 
+100 cheeses - Linear Regression: 
 Training accuracy: 47.05%
 LOOC-validation accuracy: 11.76%
+
+100 cheeses - Neural Network (188 hidden units, trained for 40 epochs, 0.4033 training error):
+Training accuracy: 15.69%
+
+100 cheeses - SVM (Linear kernel):
+Training accuracy: 42.15%
+LOOC-validation accuracy: 11.76%
+
+100 cheeses - SVM (RBF kernel):
+Training accuracy: 25.49%
+LOOC-validation accuracy: 7.84%

@@ -3,7 +3,7 @@ import pickle
 import sys
 
 # Uses least-squares linear regression for cheese-wine matching.
-# Call train() before calling predict()
+# Call train_all() before calling predict()
 class LinearMatcher:
     def __init__(self):
         self.A = None
@@ -25,6 +25,9 @@ class LinearMatcher:
         cheese_features = pickle.load(open('../100cheese_type_descriptor_mat.p', 'rb'))
         cheese_names = pickle.load(open('../100cheese_names.p', 'rb'))
 
+        self.wine_feat_len = wine_features.shape[1]
+        self.cheese_feat_len = cheese_features.shape[1]
+
         for index, wine_name in enumerate(wine_names):
             self.wines[wine_name] = wine_features[index, :]
 
@@ -32,12 +35,7 @@ class LinearMatcher:
             self.cheeses[cheese_name] = cheese_features[index, :]
 
 
-    def train(self, pairings):
-        # We want to find A that best satisfies AX = Y. The solution is A = (X^T X)^-1 X^T Y
-        # X is the cheese data, one column per cheese
-        # Y is the wine data, one column per wine
-
-        # build X & Y
+    def getXY(self, pairings):
         X = []
         Y = []
         for cheese, wine in pairings:
@@ -45,10 +43,19 @@ class LinearMatcher:
             wine_desc = self.wines[wine]
             X.append(cheese_desc)
             Y.append(wine_desc)
-
-        # perform least-squares regression
         X = np.array(X)
         Y = np.array(Y)
+        return X, Y
+
+    def train(self, pairings):
+        # We want to find A that best satisfies AX = Y. The solution is A = (X^T X)^-1 X^T Y
+        # X is the cheese data, one column per cheese
+        # Y is the wine data, one column per wine
+
+        # build X & Y
+        X, Y = self.getXY(pairings)
+
+        # perform least-squares regression
         self.A = (np.linalg.lstsq(np.dot(X.T, X), np.dot(X.T, Y))[0]).T
 
 
@@ -94,7 +101,7 @@ class LinearMatcher:
     # need to call train() first
     def predict(self, cheese_name):
         cheese_desc = self.cheeses[cheese_name]
-        wine_desc = np.dot(self.A, cheese_desc)
+        wine_desc = self.predict_feat(cheese_desc)
 
         # find closest-matching wine
         min_dist = sys.float_info.max
@@ -108,3 +115,5 @@ class LinearMatcher:
                 best_wine = wine_name
         return best_wine
 
+    def predict_feat(self, cheese_desc):
+        return np.dot(self.A, cheese_desc)
