@@ -9,35 +9,27 @@ class LinearMatcher:
         self.A = None
         self.wines = {}
         self.cheeses = {}
-        self.pairingsDict = pickle.load(open('cheese_wine_dict.p', 'rb'))
+        self.pairingsDict = pickle.load(open('100cheese_wine_dict.p', 'rb'))
         self.excluded_wines = [
             'Red Blends',
             'White Blends',
             'White Wine',
             'NonVintage',
             'Vintage',
+            'JunmaiDaiginjo',
         ]
 
         # build data. file types are provided in pickle_file_summary.txt
         wine_features = pickle.load(open('../wine_type_descriptor_mat.p', 'rb'))
         wine_names = pickle.load(open('../wine_type_list.p', 'rb'))
-        cheese_features = pickle.load(open('../cheese_type_descriptor_mat.p', 'rb'))
-        cheese_names = pickle.load(open('../cheese_names_list.p', 'rb'))
+        cheese_features = pickle.load(open('../100cheese_type_descriptor_mat.p', 'rb'))
+        cheese_names = pickle.load(open('../100cheese_names.p', 'rb'))
 
         for index, wine_name in enumerate(wine_names):
             self.wines[wine_name] = wine_features[index, :]
 
         for index, cheese_name in enumerate(cheese_names):
             self.cheeses[cheese_name] = cheese_features[index, :]
-
-
-    def train(self):
-
-        pairings = []
-        for cheese, wine_list in self.pairingsDict.iteritems():
-            for wine in wine_list:
-                pairings.append((cheese, wine))
-        self.train(pairings)
 
 
     def train(self, pairings):
@@ -59,6 +51,25 @@ class LinearMatcher:
         Y = np.array(Y)
         self.A = (np.linalg.lstsq(np.dot(X.T, X), np.dot(X.T, Y))[0]).T
 
+
+    def train_all(self):
+
+        pairings = []
+        for cheese, wine_list in self.pairingsDict.iteritems():
+            for wine in wine_list:
+                pairings.append((cheese, wine))
+        self.train(pairings)
+        result = []
+        for cheese in self.cheeses.iterkeys():
+            prediction = self.predict(cheese)
+            if prediction in self.pairingsDict[cheese]:
+                result.append(1.0)
+            else:
+                print 'WRONG: Predicted', prediction, 'for', cheese, 'but expected one of', \
+                    self.pairingsDict[cheese]
+                result.append(0.0)
+        print 'Trained on', len(result), 'examples'
+        print 'Average training accuracy:', sum(result) / len(result)
 
     def validate(self):
         result = []

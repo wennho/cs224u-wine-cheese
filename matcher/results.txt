@@ -1,0 +1,7 @@
+25 cheeses:
+Training accuracy: 64.0%
+LOOC-validation accuracy: 20.0%
+
+100 cheeses: 
+Training accuracy: 47.05%
+LOOC-validation accuracy: 11.76%
