@@ -71,7 +71,7 @@ int main (int argc, char* argv[])
   }
   testsample=read_struct_examples(testfile,&sparm);
   if(verbosity>=2) {
-    printf("done.\n"); fflush(stdout);
+    printf("done. Read %d samples.\n", testsample.n); fflush(stdout);
   }
 
   if(verbosity>=2) {

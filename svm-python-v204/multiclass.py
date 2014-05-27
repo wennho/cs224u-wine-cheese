@@ -23,7 +23,7 @@ def read_examples(filename, sparm):
         # Add the example to the list
         examples.append((svmapi.Sparse(features), target))
     # Print out some very useful statistics.
-    print len(examples),'examples read'
+    print len(examples), 'examples read'
     return examples
 
 def init_model(sample, sm, sparm):
@@ -68,6 +68,8 @@ def psi(x, y, sm, sparm):
     """Returns the combined feature vector Psi(x,y)."""
     # Just increment the feature index to the appropriate stack position.
     #vecness = [(k,v) for k,v in x]
+    # print x
+
     pvec = svmapi.Sparse(x, kernel_id=y)
     #print list(sm.w)
     #print pveca

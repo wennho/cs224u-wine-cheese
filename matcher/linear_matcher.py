@@ -32,7 +32,7 @@ class LinearMatcher:
             self.wines[wine_name] = wine_features[index, :]
 
         for index, cheese_name in enumerate(cheese_names):
-            self.cheeses[cheese_name] = cheese_features[index, :]
+            self.cheeses[cheese_name] = np.hstack((cheese_features[index, :], [1]))
 
 
     def getXY(self, pairings):
@@ -98,11 +98,8 @@ class LinearMatcher:
         print 'Leave-one-out validation on', len(result), 'examples'
         print 'Average accuracy:', sum(result) / len(result)
 
-    # need to call train() first
-    def predict(self, cheese_name):
-        cheese_desc = self.cheeses[cheese_name]
-        wine_desc = self.predict_feat(cheese_desc)
 
+    def closest_wine(self, wine_desc):
         # find closest-matching wine
         min_dist = sys.float_info.max
         best_wine = None
@@ -114,6 +111,12 @@ class LinearMatcher:
                 min_dist = dist
                 best_wine = wine_name
         return best_wine
+
+    # need to call train() first
+    def predict(self, cheese_name):
+        cheese_desc = self.cheeses[cheese_name]
+        wine_desc = self.predict_feat(cheese_desc)
+        return self.closest_wine(wine_desc)
 
     def predict_feat(self, cheese_desc):
         return np.dot(self.A, cheese_desc)
