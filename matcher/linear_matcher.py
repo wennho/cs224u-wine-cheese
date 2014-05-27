@@ -1,6 +1,7 @@
 import numpy as np
 import pickle
 import sys
+from sklearn.preprocessing import normalize
 
 # Uses least-squares linear regression for cheese-wine matching.
 # Call train_all() before calling predict()
@@ -20,9 +21,10 @@ class LinearMatcher:
         ]
 
         # build data. file types are provided in pickle_file_summary.txt
-        wine_features = pickle.load(open('../wine_type_descriptor_mat.p', 'rb'))
+        wine_features = normalize(pickle.load(open('../wine_type_descriptor_mat.p', 'rb')))
         wine_names = pickle.load(open('../wine_type_list.p', 'rb'))
-        cheese_features = pickle.load(open('../100cheese_type_descriptor_mat.p', 'rb'))
+        cheese_features = normalize(pickle.load(open('../100cheese_type_descriptor_mat.p', 'rb')))
+        cheese_features = np.insert(cheese_features, 0, 1, axis=1)
         cheese_names = pickle.load(open('../100cheese_names.p', 'rb'))
 
         self.wine_feat_len = wine_features.shape[1]
@@ -32,7 +34,7 @@ class LinearMatcher:
             self.wines[wine_name] = wine_features[index, :]
 
         for index, cheese_name in enumerate(cheese_names):
-            self.cheeses[cheese_name] = np.hstack((cheese_features[index, :], [1]))
+            self.cheeses[cheese_name] = cheese_features[index, :]
 
 
     def getXY(self, pairings):

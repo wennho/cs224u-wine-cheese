@@ -1,4 +1,4 @@
-from baseline_matcher import LinearMatcher
+from linear_matcher import LinearMatcher
 from sklearn.svm import SVR
 import numpy as np
 import logging
