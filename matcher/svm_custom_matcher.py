@@ -1,8 +1,6 @@
 from baseline_matcher import LinearMatcher
-from sklearn.svm import SVR
 import numpy as np
 import logging
-
 
 
 class SVMMatcher(LinearMatcher):
@@ -22,3 +20,4 @@ class SVMMatcher(LinearMatcher):
         for svm in self.svms:
             result.append(svm.predict([cheese_desc])[0])
         return np.array(result)
+
