@@ -3,7 +3,7 @@
 
 
 import svmapi
-from matcher.baseline_matcher import LinearMatcher
+from matcher.linear_matcher import LinearMatcher
 
 def read_examples(filename, sparm):
     """Parses an input file into an example sequence."""
